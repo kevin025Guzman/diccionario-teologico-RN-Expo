@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import { data } from '../data/data';
 
 export default function WordListScreen({ route, navigation }) {
@@ -19,6 +20,10 @@ export default function WordListScreen({ route, navigation }) {
       (w) => w && w.name && w.name.toLowerCase().includes(normalized)
     );
   }, [query, words]);
+
+  const BANNER_AD_UNIT_ID = __DEV__
+    ? TestIds.BANNER
+    : 'ca-app-pub-1076481382150127/7914625988';
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -54,6 +59,16 @@ export default function WordListScreen({ route, navigation }) {
           />
         </>
       )}
+
+      <View style={styles.bannerContainer}>
+        <BannerAd
+          unitId={BANNER_AD_UNIT_ID}
+          size={BannerAdSize.BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        />
+      </View>
     </View>
   );
 }
@@ -63,6 +78,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#020617',
+  },
+  bannerContainer: {
+    marginTop: 12,
+    alignItems: 'center',
   },
   searchInput: {
     marginBottom: 12,
