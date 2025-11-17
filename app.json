@@ -10,22 +10,11 @@
       "resizeMode": "contain",
       "backgroundColor": "#020617"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "android": {
-      "package": "com.example.diccionarioapp"
+      "package": "com.kevinguzman.diccionarioteologico"
     },
-    "plugins": [
-      "expo-asset",
-      [
-        "react-native-google-mobile-ads",
-        {
-          "android_app_id": "ca-app-pub-1076481382150127~2473886606"
-         
-        }
-      ]
-    ],
+    "plugins": ["expo-asset"],
     "extra": {
       "eas": {
         "projectId": "0d761bae-161a-4da2-ac51-9ab2c64c4011"

@@ -1,26 +1,7 @@
 import React, { useEffect } from 'react';
 import { ScrollView, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import {
-  InterstitialAd,
-  BannerAd,
-  BannerAdSize,
-  TestIds,
-  AdEventType,
-} from 'react-native-google-mobile-ads';
 import { data } from '../data/data';
-
-const INTERSTITIAL_AD_UNIT_ID = __DEV__
-  ? TestIds.INTERSTITIAL
-  : 'ca-app-pub-1076481382150127/4909188691';
-
-const BANNER_AD_UNIT_ID = __DEV__
-  ? TestIds.BANNER
-  : 'ca-app-pub-1076481382150127/1938151248';
-
-const interstitial = InterstitialAd.createForAdRequest(INTERSTITIAL_AD_UNIT_ID, {
-  requestNonPersonalizedAdsOnly: true,
-});
 
 export default function WordDetailScreen({ route, navigation }) {
   const { letter, index } = route.params;
@@ -44,31 +25,6 @@ export default function WordDetailScreen({ route, navigation }) {
       index: newIndex,
     });
   };
-
-  useEffect(() => {
-    const loadedListener = interstitial.addAdEventListener(
-      AdEventType.LOADED,
-      () => {
-        interstitial
-          .show()
-          .catch((error) => console.warn('Error mostrando interstitial:', error));
-      }
-    );
-
-    const errorListener = interstitial.addAdEventListener(
-      AdEventType.ERROR,
-      (error) => {
-        console.warn('Error cargando interstitial:', error);
-      }
-    );
-
-    interstitial.load();
-
-    return () => {
-      loadedListener();
-      errorListener();
-    };
-  }, []);
 
   useEffect(() => {
     if (current?.name) {
@@ -116,16 +72,6 @@ export default function WordDetailScreen({ route, navigation }) {
           <Text style={[styles.navText, !hasNext && styles.navTextDisabled]}>Siguiente</Text>
         </TouchableOpacity>
       </View>
-
-      <View style={styles.bannerContainer}>
-        <BannerAd
-          unitId={BANNER_AD_UNIT_ID}
-          size={BannerAdSize.BANNER}
-          requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
-          }}
-        />
-      </View>
     </ScrollView>
   );
 }
@@ -150,10 +96,6 @@ const styles = StyleSheet.create({
     lineHeight: 28,
     color: '#E5E7EB',
     marginBottom: 24,
-  },
-  bannerContainer: {
-    marginTop: 16,
-    alignItems: 'center',
   },
   navRow: {
     flexDirection: 'row',

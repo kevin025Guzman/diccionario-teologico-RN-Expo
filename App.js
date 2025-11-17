@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import RootNavigator from './src/navigation/RootNavigator';
-import mobileAds from 'react-native-google-mobile-ads';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
 export default function App() {
-  useEffect(() => {
-    mobileAds()
-      .initialize()
-      .catch((error) => {
-        console.warn('Error inicializando AdMob:', error);
-      });
-  }, []);
-
-  return <RootNavigator />;
+  return (
+    <SafeAreaProvider>
+      <RootNavigator />
+      <StatusBar style="auto" />
+    </SafeAreaProvider>
+  );
 }

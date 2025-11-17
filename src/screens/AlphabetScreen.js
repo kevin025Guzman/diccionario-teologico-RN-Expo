@@ -1,14 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import { data } from '../data/data';
 
 export default function AlphabetScreen({ navigation }) {
   const letters = data.map((item) => item.char).filter(Boolean);
-
-  const BANNER_AD_UNIT_ID = __DEV__
-    ? TestIds.BANNER
-    : 'ca-app-pub-1076481382150127/4796797619';
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -28,16 +23,6 @@ export default function AlphabetScreen({ navigation }) {
         contentContainerStyle={styles.list}
         renderItem={renderItem}
       />
-
-      <View style={styles.bannerContainer}>
-        <BannerAd
-          unitId={BANNER_AD_UNIT_ID}
-          size={BannerAdSize.BANNER}
-          requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
-          }}
-        />
-      </View>
     </View>
   );
 }
@@ -47,10 +32,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#020617',
     padding: 16,
-  },
-  bannerContainer: {
-    marginTop: 12,
-    alignItems: 'center',
   },
   list: {
     justifyContent: 'center',
